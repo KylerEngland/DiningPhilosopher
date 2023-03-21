@@ -17,7 +17,7 @@ public class ButtonHoverEffect extends MouseAdapter {
         // Save the original color
         originalColor = e.getComponent().getBackground();
 
-        // Lighten the background color
+        // Lighten the background color, hsb means "Hue, Saturation, and Brightness"
         float[] hsb = Color.RGBtoHSB(originalColor.getRed(), originalColor.getGreen(), originalColor.getBlue(), null);
         Color lighterColor = Color.getHSBColor(hsb[0], hsb[1], Math.min(1.0f, hsb[2] + 0.2f));
         e.getComponent().setBackground(lighterColor);
