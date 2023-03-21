@@ -25,7 +25,7 @@ public class Frame extends JFrame {
         startButton.setBorderPainted(false); // Remove the border
         startButton.setBackground(new Color(66, 133, 244)); // Change the background color
         startButton.setForeground(new Color(255, 255, 255)); // Change the text color
-        startButton.addMouseListener(new HoverEffect()); // Add a hover effect
+        startButton.addMouseListener(new ButtonHoverEffect()); // Add a hover effect
         toolbar.add(startButton);
 
         // Add the stop button to the left side of the toolbar
@@ -35,7 +35,7 @@ public class Frame extends JFrame {
         stopButton.setBorderPainted(false); // Remove the border
         stopButton.setBackground(new Color(66, 133, 244)); // Change the background color
         stopButton.setForeground(new Color(255, 255, 255)); // Change the text color
-        stopButton.addMouseListener(new HoverEffect()); // Add a hover effect
+        stopButton.addMouseListener(new ButtonHoverEffect()); // Add a hover effect
         toolbar.add(stopButton);
 
         // Add a spacer to the right side of the toolbar to move the dropdown to the
