@@ -1,6 +1,5 @@
 package Main;
-import java.awt.*;
-//import 
+//import java.awt.*;
 
 import javax.swing.JPanel;
 
@@ -15,10 +14,9 @@ public class Philosopher {
         this.state = "thinking";
         this.panel=panel; 
         draw();
-
     }
     private void draw(){
-
+        
     }
     public int getId() {
         return id; 

@@ -3,7 +3,7 @@ package Main;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.Graphics;
+//import java.awt.Graphics;
 
 public class Frame extends JFrame {
 
@@ -67,19 +67,12 @@ public class Frame extends JFrame {
         });
         toolbar.add(ticksPerSecondDropdown);
 
-        //Create Jpanel below toolbar
-        JPanel panel = new JPanel();
+        //Create Panel below toolbar
+        Panel panel = new Panel();
         panel.setBackground(new Color(220,225,230));
+        panel.setLayout(null);
         this.add(panel);
-
-        //Graphics g = Graphics;
-        //Draw table 
-
-        // public void paint(Graphics g){
-
-        // }
-        g.drawOval(500, 500, 200, 200);
-
+        
         // Create the 5 Philosophers
         for(int index = 1; index <= 5; index++){
             new Philosopher(index, panel); 
