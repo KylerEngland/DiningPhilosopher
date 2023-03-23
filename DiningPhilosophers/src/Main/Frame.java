@@ -10,7 +10,8 @@ public class Frame extends JFrame {
     public Frame() {
         setTitle("My Frame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(500, 400));
+        setPreferredSize(new Dimension(1000, 800));
+        setResizable(false);
 
         // Create a toolbar and add it to the frame
         JToolBar toolbar = new JToolBar();
