@@ -5,9 +5,6 @@ public class App {
         Frame frame = new Frame();
         frame.pack();
         frame.setVisible(true);
-        // System.out.println("Hello, World!");
-        // Dinner philosopher = new Dinner();
-        // philosopher.start();
     }
 
 }

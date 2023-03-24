@@ -3,11 +3,11 @@ package Main;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-//import java.awt.Graphics;
+import java.io.IOException;
 
 public class Frame extends JFrame {
 
-    public Frame() {
+    public Frame() throws IOException {
         setTitle("My Frame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(1000, 800));
@@ -71,12 +71,12 @@ public class Frame extends JFrame {
         //Create Panel below toolbar
         Panel panel = new Panel();
         panel.setBackground(new Color(220,225,230));
+         // Create the 5 Philosophers
         panel.setLayout(null);
-        this.add(panel);
-        
-        // Create the 5 Philosophers
+        Philosopher[] philosophers = new Philosopher[6];
         for(int index = 1; index <= 5; index++){
-            new Philosopher(index, panel); 
+            philosophers[index] = new Philosopher(index, panel); 
         }
+        this.add(panel);
     }
 }
