@@ -68,14 +68,21 @@ public class Frame extends JFrame {
         });
         toolbar.add(ticksPerSecondDropdown);
 
-        //Create Panel below toolbar
+        // Create the output area and add it to the frame
+        JTextArea outputArea = new JTextArea();
+        outputArea.setPreferredSize(new Dimension(200, 400));
+        outputArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(outputArea);
+        this.add(scrollPane, BorderLayout.EAST);
+
+        // Create Panel below toolbar
         Panel panel = new Panel();
-        panel.setBackground(new Color(220,225,230));
-         // Create the 5 Philosophers
+        panel.setBackground(new Color(220, 225, 230));
+        // Create the 5 Philosophers
         panel.setLayout(null);
         Philosopher[] philosophers = new Philosopher[6];
-        for(int index = 1; index <= 5; index++){
-            philosophers[index] = new Philosopher(index, panel); 
+        for (int index = 1; index <= 5; index++) {
+            philosophers[index] = new Philosopher(index, panel, outputArea);
         }
         this.add(panel);
     }
