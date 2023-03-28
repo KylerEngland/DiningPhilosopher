@@ -44,6 +44,32 @@ public class Frame extends JFrame {
         // right
         toolbar.add(Box.createHorizontalGlue());
 
+
+        //Added a dropdown menu for way of solving the dining philosopher problem.
+        String[] typeOptions = {"Semaphore Dinner", "Monitor Dinner"};
+        JComboBox<String> dinnerTypes = new JComboBox<>(typeOptions);
+        dinnerTypes.setFocusable(false); // Remove the focus border
+        dinnerTypes.setMaximumSize(new Dimension(120, 30)); // Limit the size of the dropdown
+        dinnerTypes.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255), 1)); // Add a border
+        dinnerTypes.setBackground(new Color(66, 133, 244)); // Change the background color
+        dinnerTypes.setForeground(new Color(255, 255, 255)); // Change the text color
+        dinnerTypes.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,
+                        cellHasFocus);
+                if (isSelected) {
+                    renderer.setBackground(new Color(200, 220, 255));
+                } else {
+                    renderer.setBackground(new Color(66, 133, 244));
+                }
+                return renderer;
+            }
+        });
+        toolbar.add(dinnerTypes);
+
+
         // Create the dropdown menu and add it to the right side of the toolbar
         String[] options = { "1 per second", "3 per second", "5 per second", "10 per second" };
         JComboBox<String> ticksPerSecondDropdown = new JComboBox<>(options);
@@ -67,6 +93,8 @@ public class Frame extends JFrame {
             }
         });
         toolbar.add(ticksPerSecondDropdown);
+
+        
 
         // Create the output area and add it to the frame
         JTextArea outputArea = new JTextArea();
