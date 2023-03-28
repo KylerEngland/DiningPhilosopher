@@ -19,6 +19,8 @@ public class Philosopher {
     private JPanel panel;
     private JTextArea outputArea;
     private boolean running = true;
+    private Fork leftFork;
+    private Fork rightFork;
 
 
 
@@ -70,25 +72,25 @@ public class Philosopher {
         state = newState; 
     }
 
-    // public void run(){
-    //     while(running){
-    //       // philosopher is thinking
-    //       outputArea.append("Philosopher " + id + " is thinking.\n");
+    public void run(){
+        while(running){
+          // philosopher is thinking
+          outputArea.append("Philosopher " + id + " is thinking.\n");
 
-    //       // philosopher tries to pick up left fork
-    //       leftFork.pickUp();
+          // philosopher tries to pick up left fork
+          leftFork.pickUp();
 
-    //       // philosopher tries to pick up right fork
-    //       if (rightFork.pickUp()) {
-    //           // philosopher is eating
-    //           outputArea.append("Philosopher " + id + " is eating.\n");
+          // philosopher tries to pick up right fork
+          if (rightFork.pickUp()) {
+              // philosopher is eating
+              outputArea.append("Philosopher " + id + " is eating.\n");
 
-    //           // philosopher puts down right fork
-    //           rightFork.putDown();
-    //       }
+              // philosopher puts down right fork
+              rightFork.putDown();
+          }
 
-    //       // philosopher puts down left fork
-    //       leftFork.putDown();  
-    //     }
-    // }
+          // philosopher puts down left fork
+          leftFork.putDown();  
+        }
+    }
 }
