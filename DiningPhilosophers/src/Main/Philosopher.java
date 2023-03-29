@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea; 
 
-public class Philosopher {
+public class Philosopher implements Runnable{
     private int id;
     private String name;
     private String state;
@@ -21,15 +21,17 @@ public class Philosopher {
     private boolean running = true;
     private Fork leftFork;
     private Fork rightFork;
+    private int tickNumber;
 
 
 
-    public Philosopher(int id, JPanel panel, JTextArea outputArea) throws IOException {
+    public Philosopher(int id, JPanel panel, JTextArea outputArea, int tickNumber) throws IOException {
         this.id = id; 
         this.name = "P" + id; 
         this.state = "thinking";
         this.panel = panel; 
         this.outputArea = outputArea;
+        this.tickNumber = tickNumber;
         draw(panel);
     }
     private void draw(JPanel panel) throws IOException{

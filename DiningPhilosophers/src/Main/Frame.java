@@ -70,9 +70,15 @@ public class Frame extends JFrame {
         toolbar.add(dinnerTypes);
 
 
-        // Create the dropdown menu and add it to the right side of the toolbar
-        String[] options = { "1 per second", "3 per second", "5 per second", "10 per second" };
+
+        
+        
+
+
+        // String[] options = { "Select number of ticks per second", "1", "3", "5", "10" };
+        String[] options = {"1", "3", "5", "10" };
         JComboBox<String> ticksPerSecondDropdown = new JComboBox<>(options);
+        // ticksPerSecondDropdown.setSelectedItem("Select number of ticks per second"); // Set the initial value as selected but not selectable
         ticksPerSecondDropdown.setMaximumSize(new Dimension(120, 30)); // Limit the size of the dropdown
         ticksPerSecondDropdown.setFocusable(false); // Remove the focus border
         ticksPerSecondDropdown.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255), 1)); // Add a border
@@ -109,8 +115,11 @@ public class Frame extends JFrame {
         // Create the 5 Philosophers
         panel.setLayout(null);
         Philosopher[] philosophers = new Philosopher[6];
+        String selectedValue = (String) ticksPerSecondDropdown.getSelectedItem();
+        int selectedInt = Integer.parseInt(selectedValue);
+
         for (int index = 1; index <= 5; index++) {
-            philosophers[index] = new Philosopher(index, panel, outputArea);
+            philosophers[index] = new Philosopher(index, panel, outputArea, selectedInt);
         }
         this.add(panel);
     }
