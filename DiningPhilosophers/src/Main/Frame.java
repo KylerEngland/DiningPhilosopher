@@ -100,7 +100,6 @@ public class Frame extends JFrame {
             }
         });
         // Create the output area and add it to the frame
-        // Create the output area and add it to the frame
         JTextArea outputArea = new JTextArea();
         outputArea.setEditable(false);
 
