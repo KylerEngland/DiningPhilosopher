@@ -100,19 +100,28 @@ public class Frame extends JFrame {
             }
         });
         // Create the output area and add it to the frame
-        JTextArea outputArea = new JTextArea();
-        outputArea.setPreferredSize(new Dimension(200, 400));
-        outputArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(outputArea);
-        this.add(scrollPane, BorderLayout.EAST);
-        // Create the 5 Philosophers
-        panel.setLayout(null);
-        Philosopher[] philosophers = new Philosopher[6];
-        String selectedValue = (String) ticksPerSecondDropdown.getSelectedItem();
-        int selectedInt = Integer.parseInt(selectedValue);
-        for (int index = 1; index <= 5; index++) {
-            philosophers[index] = new Philosopher(index, panel, outputArea, selectedInt);
-        }
+// Create the output area and add it to the frame
+JTextArea outputArea = new JTextArea();
+outputArea.setEditable(false);
+
+// Create a JScrollPane and add the output area to it
+JScrollPane scrollPane = new JScrollPane(outputArea);
+
+// Set the preferred size of the scroll pane
+scrollPane.setPreferredSize(new Dimension(200, 400));
+
+// Add the scroll pane to the frame
+this.add(scrollPane, BorderLayout.EAST);
+
+// Create the 5 Philosophers
+panel.setLayout(null);
+Philosopher[] philosophers = new Philosopher[6];
+String selectedValue = (String) ticksPerSecondDropdown.getSelectedItem();
+int selectedInt = Integer.parseInt(selectedValue);
+for (int index = 1; index <= 5; index++) {
+    philosophers[index] = new Philosopher(index, panel, outputArea, selectedInt);
+}
+
         Thread threads[] = new Thread[6];
 
         startButton.addActionListener(new ActionListener() {
