@@ -17,11 +17,10 @@ public class Philosopher implements Runnable{
     private Panel panel;
     private JTextArea outputArea;
     private boolean running = true;
-    //private Fork leftFork;
-    //private Fork rightFork;
+    private Fork leftFork;
+    private Fork rightFork;
     private int ticksRemaining;
     private int ticksPerSecond;
-    private Frame frame;
 
 
 
@@ -33,7 +32,8 @@ public class Philosopher implements Runnable{
         this.outputArea = outputArea;
         this.ticksRemaining = 0;
         this.ticksPerSecond = ticksPerSecond; 
-        this.frame = frame;
+        this.leftFork = frame.getFork((id)%5);
+        this.rightFork = frame.getFork(id-1);
         draw(panel);
     }
     private void draw(JPanel panel) throws IOException{
@@ -81,8 +81,16 @@ public class Philosopher implements Runnable{
         running = newRunning;
     }
     public boolean canEat(){
-        // check depending on semophores if this philosopher can eat 
-        return true;
+        // check depending on semophores if this philosopher can eat
+        if(leftFork.semPickUp() && rightFork.semPickUp()){
+            return true;
+        }
+        else{
+            leftFork.semPutDown();
+            rightFork.semPutDown();
+            return false; 
+        }
+        
     }
 
     // Function where philosopher tries to pickup forks, first the left, then the right.
@@ -105,32 +113,34 @@ public class Philosopher implements Runnable{
                 outputArea.append("Philosopher " + id + " is hungry and wants \n to eat for "+ ticksRemaining +" tick(s).\n");
             }
             else if(state=="eating"){
-                //eat locking semephores
+                //release forks
+                leftFork.semPutDown();
+                rightFork.semPutDown();
                 setState("thinking");
-                outputArea.append("Philosopher " + id + " is thinking and wants \n to think for "+ ticksRemaining +" tick(s).\n");
+                outputArea.append("Philosopher " + id + " is thinking and \n wants to think for "+ ticksRemaining +" tick(s).\n");
             } 
         }
         if(state=="thinking"){
             ticksRemaining--; 
             //output to log
-            outputArea.append("Philosopher " + id + " thinks and wants \n to think for "+ ticksRemaining +" tick(s).\n");
+            outputArea.append("Philosopher " + id + " thinks and \n wants to think for "+ ticksRemaining +" tick(s).\n");
         }
         else if(state=="eating"){
             //check if able to eat
             ticksRemaining--;
             //output to log
-            outputArea.append("Philosopher " + id + " eats and wants \n to eat for "+ ticksRemaining +" tick(s).\n");
+            outputArea.append("Philosopher " + id + " eats and \n wants to eat for "+ ticksRemaining +" tick(s).\n");
         }
         else if(state=="hungry"){
-            //try to eat
+            //try to eat and if true it will lock the semephores
             if(canEat()==true){
                 //eat locking semephores
                 setState("eating");
                 ticksRemaining--;
-                outputArea.append("Philosopher " + id + " eats and wants \n to eat for "+ ticksRemaining +" tick(s).\n");
+                outputArea.append("Philosopher " + id + " eats and \n wants to eat for "+ ticksRemaining +" tick(s).\n");
             }
             else {
-                outputArea.append("Philosopher " + id + " is unable to eat and wants \n to eat for "+ ticksRemaining +" tick(s).\n");
+                outputArea.append("Philosopher " + id + " is unable to eat and \n wants to eat for "+ ticksRemaining +" tick(s).\n");
             }
         }
         // Sleep according to how many ticks per second

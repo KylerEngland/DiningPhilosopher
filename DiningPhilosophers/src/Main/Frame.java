@@ -8,6 +8,7 @@ import java.awt.event.*;
 
 public class Frame extends JFrame {
     Philosopher[] philosophers = new Philosopher[6];
+    Fork[] forks = new Fork[5];
 
     public Frame() throws IOException {
         setTitle("My Frame");
@@ -112,6 +113,10 @@ public class Frame extends JFrame {
 
         // Add the scroll pane to the frame
         this.add(scrollPane, BorderLayout.EAST);
+        // Create 5 Forks
+        for (int index = 0; index < 5; index++) {
+            forks[index] = new Fork();
+        }
 
         // Create the 5 Philosophers
         panel.setLayout(null);
@@ -145,7 +150,7 @@ public class Frame extends JFrame {
         toolbar.add(dinnerTypes);
         this.add(panel);
     } 
-    public Philosopher getPhilosopher(int index){
-        return philosophers[index];
+    public Fork getFork(int index){
+        return forks[index];
     }
 }
