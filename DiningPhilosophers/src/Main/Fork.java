@@ -1,20 +1,22 @@
 package Main;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 public class Fork {
-    private Lock lock;
+    private boolean availability;
 
     public Fork() {
-        lock = new ReentrantLock();
+        availability = true;
     }
 
     public boolean pickUp() {
-        return lock.tryLock();
+        if (availability == true) {
+            availability = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void putDown() {
-        lock.unlock();
+        availability = true;
     }
 }
