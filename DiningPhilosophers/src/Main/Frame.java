@@ -134,9 +134,9 @@ public class Frame extends JFrame {
         });
         stopButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Thread threads[] = new Thread[6];
+                //Thread threads[] = new Thread[6];
                 for (int index = 1; index <= 5; index++) {
-                    // threads[index].setRunning(false);
+                    threads[index].stop();
                 }
             }
         });
