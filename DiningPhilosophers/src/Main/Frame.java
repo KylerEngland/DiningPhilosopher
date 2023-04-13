@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.awt.event.*;
 
 public class Frame extends JFrame {
+    Philosopher[] philosophers = new Philosopher[6];
 
     public Frame() throws IOException {
         setTitle("My Frame");
@@ -114,11 +115,10 @@ public class Frame extends JFrame {
 
         // Create the 5 Philosophers
         panel.setLayout(null);
-        Philosopher[] philosophers = new Philosopher[6];
         String selectedValue = (String) ticksPerSecondDropdown.getSelectedItem();
         int selectedInt = Integer.parseInt(selectedValue);
         for (int index = 1; index <= 5; index++) {
-            philosophers[index] = new Philosopher(index, panel, outputArea, selectedInt);
+            philosophers[index] = new Philosopher(index, panel, outputArea, selectedInt, this);
         }
 
         Thread threads[] = new Thread[6];
@@ -140,8 +140,12 @@ public class Frame extends JFrame {
                 }
             }
         });
+       
         toolbar.add(ticksPerSecondDropdown);
         toolbar.add(dinnerTypes);
         this.add(panel);
+    } 
+    public Philosopher getPhilosopher(int index){
+        return philosophers[index];
     }
 }

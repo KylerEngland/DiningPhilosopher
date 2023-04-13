@@ -21,10 +21,11 @@ public class Philosopher implements Runnable{
     //private Fork rightFork;
     private int ticksRemaining;
     private int ticksPerSecond;
+    private Frame frame;
 
 
 
-    public Philosopher(int id, Panel panel, JTextArea outputArea, int ticksPerSecond) throws IOException {
+    public Philosopher(int id, Panel panel, JTextArea outputArea, int ticksPerSecond, Frame frame) throws IOException {
         this.id = id; 
         this.name = "P" + id; 
         this.state = "thinking";
@@ -32,6 +33,7 @@ public class Philosopher implements Runnable{
         this.outputArea = outputArea;
         this.ticksRemaining = 0;
         this.ticksPerSecond = ticksPerSecond; 
+        this.frame = frame;
         draw(panel);
     }
     private void draw(JPanel panel) throws IOException{
