@@ -85,6 +85,12 @@ public class Philosopher implements Runnable{
         return true;
     }
 
+    // Function where philosopher tries to pickup forks, first the left, then the right.
+    public void pickUpForks(){
+        leftFork.pickUp();
+        rightFork.pickUp();
+    }
+
     public void tick() throws InterruptedException {
         //System.out.println("tick");
         
@@ -138,25 +144,7 @@ public class Philosopher implements Runnable{
                 tick();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-
-        // philosopher is thinking
-        //   outputArea.append("Philosopher " + id + " is thinking.\n");
-
-        //   // philosopher tries to pick up left fork
-        //   leftFork.pickUp();
-
-        //   // philosopher tries to pick up right fork
-        //   if (rightFork.pickUp()) {
-        //       // philosopher is eating
-        //       outputArea.append("Philosopher " + id + " is eating.\n");
-
-        //       // philosopher puts down right fork
-        //       rightFork.putDown();
-        //   }
-
-        //   // philosopher puts down left fork
-        //   leftFork.putDown();  
+            } 
         }
     }
 }
