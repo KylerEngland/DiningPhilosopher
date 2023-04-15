@@ -6,10 +6,10 @@ import java.awt.*;
 import java.io.IOException;
 import java.awt.event.*;
 
-
 public class Frame extends JFrame {
     Philosopher[] philosophers = new Philosopher[6];
     Fork[] forks = new Fork[5];
+    String dinnerMode;
 
     public Frame() throws IOException {
         setTitle("My Frame");
@@ -75,6 +75,15 @@ public class Frame extends JFrame {
                 return renderer;
             }
         });
+        // Add an ActionListener to the JComboBox
+        dinnerTypes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedOption = (String) dinnerTypes.getSelectedItem();
+                System.out.println("User selected: " + selectedOption);
+                dinnerMode = selectedOption;
+            }
+        });
 
         // String[] options = { "Select number of ticks per second", "1", "3", "5", "10"
         // };
@@ -124,7 +133,7 @@ public class Frame extends JFrame {
         String selectedValue = (String) ticksPerSecondDropdown.getSelectedItem();
         int selectedInt = Integer.parseInt(selectedValue);
         for (int index = 1; index <= 5; index++) {
-            philosophers[index] = new Philosopher(index, panel, outputArea, selectedInt, this);
+            philosophers[index] = new Philosopher(index, panel, outputArea, selectedInt, this, dinnerMode);
         }
 
         Thread threads[] = new Thread[6];
@@ -150,8 +159,9 @@ public class Frame extends JFrame {
         toolbar.add(ticksPerSecondDropdown);
         toolbar.add(dinnerTypes);
         this.add(panel);
-    } 
-    public Fork getFork(int index){
+    }
+
+    public Fork getFork(int index) {
         return forks[index];
     }
 }

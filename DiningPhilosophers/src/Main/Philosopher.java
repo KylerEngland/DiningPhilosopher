@@ -12,6 +12,7 @@ import java.lang.Thread;
 
 public class Philosopher implements Runnable{
     private int id;
+    private String mode;
     private String name;
     private String state;
     private Panel panel;
@@ -24,7 +25,7 @@ public class Philosopher implements Runnable{
 
 
 
-    public Philosopher(int id, Panel panel, JTextArea outputArea, int ticksPerSecond, Frame frame) throws IOException {
+    public Philosopher(int id, Panel panel, JTextArea outputArea, int ticksPerSecond, Frame frame, String mode) throws IOException {
         this.id = id; 
         this.name = "P" + id; 
         this.state = "thinking";
@@ -34,6 +35,7 @@ public class Philosopher implements Runnable{
         this.ticksPerSecond = ticksPerSecond; 
         this.leftFork = frame.getFork((id)%5);
         this.rightFork = frame.getFork(id-1);
+        this.mode = mode;
         draw(panel);
     }
     private void draw(JPanel panel) throws IOException{
@@ -81,22 +83,37 @@ public class Philosopher implements Runnable{
         running = newRunning;
     }
     public boolean canEat(){
-        // check depending on semophores if this philosopher can eat
-        if(leftFork.semPickUp() && rightFork.semPickUp()){
-            return true;
-        }
-        else{
-            leftFork.semPutDown();
-            rightFork.semPutDown();
-            return false; 
+        if(mode == "Semaphore Dinner"){
+            // check depending on semophores if this philosopher can eat
+            if(leftFork.semPickUp() && rightFork.semPickUp()){
+                return true;
+            }
+            else{
+                leftFork.semPutDown();
+                rightFork.semPutDown();
+                return false; 
+            }
+        }else{
+            if(leftFork.monitorPickUp(id) && rightFork.monitorPickUp(id)){
+                return true;
+            }else{
+                leftFork.monitorPutDown();
+                rightFork.monitorPutDown();
+                return false;
+            }
         }
         
     }
 
     // Function where philosopher tries to pickup forks, first the left, then the right.
     public void pickUpForks(){
-        leftFork.pickUp();
-        rightFork.pickUp();
+        if(mode == "Semaphore Dinner"){
+            leftFork.semPickUp();
+            rightFork.semPickUp();
+        }else{
+            leftFork.monitorPickUp(this.id);
+            rightFork.monitorPickUp(this.id);
+        }
     }
 
     public void tick() throws InterruptedException {
@@ -114,8 +131,13 @@ public class Philosopher implements Runnable{
             }
             else if(state=="eating"){
                 //release forks
-                leftFork.semPutDown();
-                rightFork.semPutDown();
+                if(mode == "Semaphore Dinner"){
+                    leftFork.semPutDown();
+                    rightFork.semPutDown();
+                }else{
+                    leftFork.monitorPutDown();
+                    rightFork.monitorPutDown();
+                }
                 setState("thinking");
                 outputArea.append("Philosopher " + id + " is thinking and \n wants to think for "+ ticksRemaining +" tick(s).\n");
             } 
