@@ -6,6 +6,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.awt.event.*;
 
+
 public class Frame extends JFrame {
     Philosopher[] philosophers = new Philosopher[6];
     Fork[] forks = new Fork[5];

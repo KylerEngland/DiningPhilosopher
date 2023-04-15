@@ -39,8 +39,8 @@ public class Philosopher implements Runnable{
     private void draw(JPanel panel) throws IOException{
         BufferedImage image = null;
         //File file = new File("DiningPhilosophers/images/philsopher.png");
-        //File file = new File("images/philsopher.png");
-        File file = new File("C:\\Users\\danie\\OneDrive\\Documents\\IWU\\CIS-425\\DiningPhilosopher\\DiningPhilosophers\\images\\philsopher.png");
+        File file = new File("images/philsopher.png");
+        // File file = new File("C:\\Users\\danie\\OneDrive\\Documents\\IWU\\CIS-425\\DiningPhilosopher\\DiningPhilosophers\\images\\philsopher.png");
         image = ImageIO.read(file);
         Image resultingImage = image.getScaledInstance(125, 150, Image.SCALE_DEFAULT);
         JLabel label = new JLabel(new ImageIcon(resultingImage));
