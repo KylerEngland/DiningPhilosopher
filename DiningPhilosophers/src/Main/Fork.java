@@ -1,5 +1,4 @@
 package Main;
-
 import java.util.concurrent.Semaphore;
 
 public class Fork {
