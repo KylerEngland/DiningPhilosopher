@@ -4,10 +4,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Vector;
 import java.awt.event.*;
 
 public class Frame extends JFrame {
     Philosopher[] philosophers = new Philosopher[6];
+    Vector<MonitorPhilosopher> monitorPhilosophers = new Vector<>(6);
     Fork[] forks = new Fork[5];
     String dinnerMode;
 
@@ -133,7 +135,11 @@ public class Frame extends JFrame {
         String selectedValue = (String) ticksPerSecondDropdown.getSelectedItem();
         int selectedInt = Integer.parseInt(selectedValue);
         for (int index = 1; index <= 5; index++) {
-            philosophers[index] = new Philosopher(index, panel, outputArea, selectedInt, this, dinnerMode);
+            if (dinnerMode == "Monitor Dinner") {
+                monitorPhilosophers.add(index, new MonitorPhilosopher(index, panel, outputArea, selectedInt, this));
+            } else if (dinnerMode == "Semaphore Dinner") {
+                philosophers[index] = new Philosopher(index, panel, outputArea, selectedInt, this, dinnerMode);
+            }
         }
 
         Thread threads[] = new Thread[6];
@@ -142,20 +148,25 @@ public class Frame extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 for (int index = 1; index <= 5; index++) {
-                    threads[index] = new Thread(philosophers[index]);
-                    threads[index].start();
+                    if (dinnerMode == "Monitor Dinner") {
+                        threads[index] = new Thread(monitorPhilosophers.get(index));
+                        threads[index].start();
+                    } else if (dinnerMode == "Semaphore Dinner") {
+                        threads[index] = new Thread(philosophers[index]);
+                        threads[index].start();
+                    }
                 }
             }
         });
         stopButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //Thread threads[] = new Thread[6];
+                // Thread threads[] = new Thread[6];
                 for (int index = 1; index <= 5; index++) {
                     threads[index].stop();
                 }
             }
         });
-       
+
         toolbar.add(ticksPerSecondDropdown);
         toolbar.add(dinnerTypes);
         this.add(panel);
